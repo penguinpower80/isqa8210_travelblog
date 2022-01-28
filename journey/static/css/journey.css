@@ -1,0 +1,8 @@
+.tbpost img {
+    width: 100%
+}
+
+/* this is a really bad way to do this, but the inline-block is hard coded into the widget and this is easier for quick project */
+.django-ckeditor-widget {
+    display: block!important;
+}

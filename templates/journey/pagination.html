@@ -1,0 +1,14 @@
+{% load traveltags %}
+<div class="pagination mt-1 mb-1">
+  <span class="step-links"> 
+    {% if page.has_previous %}
+        <a href="{% blog_url param='page' value=page.previous_page_number %}">Previous</a>
+    {% endif %}
+      <span class="current">
+      Page {{ page.number }} of {{ page.paginator.num_pages }}. 
+    </span>
+      {% if page.has_next %}
+          <a href="{% blog_url param='page' value=page.next_page_number %}">Next</a>
+      {% endif %}
+  </span>
+</div> 

@@ -1,0 +1,11 @@
+{% extends 'journey/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Sign up</h2>
+    <form method="post" class="uniForm blueForms">
+        {% csrf_token %}
+        {{ user_form|crispy }}
+        <button id="btnSubmit" type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+{% endblock %}

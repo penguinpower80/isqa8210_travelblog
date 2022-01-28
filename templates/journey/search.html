@@ -1,0 +1,11 @@
+{% load traveltags %}
+<form id="searchform" action="{% blog_url param='s' value="" %}">
+    <div class="input-group mb-3">
+        <input type="text" id="searchinput" name="s" class="form-control" placeholder="Search..." aria-label="Search"
+               aria-describedby="search_button" value="{{ search| default_if_none:"" }}">
+        <button class="btn btn-outline-secondary" type="submit" id="search_button">
+            <span class="fa fa-search"></span> Search
+        </button>
+        <button class="btn btn-outline-secondary" type="button" id="search_reset">Clear</button>
+    </div>
+</form>

@@ -1,0 +1,82 @@
+{% extends "journey/base.html" %}
+{% load traveltags %}
+
+{% load static %}
+{% block title %}Posts{% endblock %}
+{% block content %}
+    <style>
+        img.home {
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+    <div class="row">
+        <div class="col-12 col-lg-3 mt-1 mb-1">
+            {% include "journey/pagination.html" with req=request page=posts search=search %}
+        </div>
+        <div class="col-12 col-lg-4 mt-1 mb-1">
+            <a href="{% blog_url param='sort' value='date' %}">
+                Added Date
+                {% if sort == 'date' %} <span class="fa fa-caret-up"></span>{% endif %}
+                {% if sort == '-date' or not sort %} <span class="fa fa-caret-down"></span>{% endif %}
+            </a>
+            |
+            <a href="{% blog_url param='sort' value='comment_count' %}">
+                # Comments
+                {% if sort == 'comment_count' %} <span class="fa fa-caret-up"></span>{% endif %}
+                {% if sort == '-comment_count' %} <span class="fa fa-caret-down"></span>{% endif %}
+            </a>
+            |
+            <a href="{% blog_url param='sort' value='latest_comment' %}">
+                Latest Comment
+                {% if sort == 'latest_comment' %} <span class="fa fa-caret-up"></span>{% endif %}
+                {% if sort == '-latest_comment' %} <span class="fa fa-caret-down"></span>{% endif %}
+            </a>
+        </div>
+        <div class="col-12 col-lg-5 mt-1 mb-1">
+            {% include "journey/search.html" with search=search %}
+        </div>
+    </div>
+
+    {% if search %}
+        <div class="row">
+            <div class="col-12">
+                You searched for <strong>{{ search }}</strong>
+            </div>
+        </div>
+    {% endif %}
+
+    {#        Reference - https://startbootstrap.com/template/shop-homepage#}
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right">
+        {% for post in posts %}
+            <div class="col mb-4">
+                <div class="card h-100">
+                    <!-- Post image-->
+                    <a href="{% url 'journey:travelblog_post' post_id=post.pk %}">
+                        <img class="card-img home rounded" src="{{ post.image_url }}" alt="{{ post.title }}">
+                    </a>
+                    <!-- Post details-->
+                    <div class="card-body p-3">
+                        <div class="text-left">
+                            <!-- Post title-->
+                            <p class="fs-4">{{ post.title }}</p>
+                            <!-- Post Author-->
+                            <p class="fs-5 fst-italic">
+                                <span class="fa fa-user"></span>
+                                {{ post.author.get_full_name }}
+                            </p>
+                            <div title="{{ post.latest_comment }}"
+                                 class="badge bg-success position-absolute top-0 start-100 translate-middle">
+                                {{ post.comment_count }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include "journey/pagination.html" with page=posts %}
+    </div>
+
+{% endblock %}

@@ -128,7 +128,7 @@ def post_list(request):
     else:
         sort = '-publish'
 
-    newest = Comment.objects.filter(post=OuterRef('pk')).order_by('-created')
+    newest = Comment.objects.filter(post=OuterRef('pk')).order_by('-created')[:1]
     if search:
         object_list = Post.objects.filter(
             Q(title__icontains=search) |

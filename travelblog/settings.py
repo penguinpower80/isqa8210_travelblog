@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'travelblog.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'development': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'default': {
+    'defaultpg': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dgb',
         'USER': 'maverick',

@@ -15,6 +15,7 @@ def comment_list(request):
         return redirect("journey:post_list")
     search = request.GET.get('s')
     if search:
+        #search on body, commentor name, or commentor email
         object_list = Comment.objects.filter(
             Q(body__icontains=search) | Q(name__icontains=search) | Q(email__icontains=search)).order_by('-created')
     else:

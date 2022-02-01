@@ -33,3 +33,11 @@ def blog_url(context, param, value):
         if not found_param:
             query_string_parts.append(param + '=' + str(value))
         return '?' + "&".join(query_string_parts)
+
+@register.simple_tag
+def activesort(sort, field):
+    if ( field=='date' and (sort=='date' or sort=='-date' or not sort) )   \
+       or (field=='comment_count' and (sort=='comment_count' or sort=='-comment_count') ) \
+       or ( field=='latest_comment' and (sort=='latest_comment' or sort=='-latest_comment') ):
+        return 'primary active'
+    return 'secondary'

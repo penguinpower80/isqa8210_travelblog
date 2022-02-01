@@ -15,23 +15,23 @@
             {% include "journey/pagination.html" with req=request page=posts search=search %}
         </div>
         <div class="col-12 col-lg-4 mt-1 mb-1">
-            <a href="{% blog_url param='sort' value='date' %}">
-                Added Date
-                {% if sort == 'date' %} <span class="fa fa-caret-up"></span>{% endif %}
-                {% if sort == '-date' or not sort %} <span class="fa fa-caret-down"></span>{% endif %}
-            </a>
-            |
-            <a href="{% blog_url param='sort' value='comment_count' %}">
-                # Comments
-                {% if sort == 'comment_count' %} <span class="fa fa-caret-up"></span>{% endif %}
-                {% if sort == '-comment_count' %} <span class="fa fa-caret-down"></span>{% endif %}
-            </a>
-            |
-            <a href="{% blog_url param='sort' value='latest_comment' %}">
-                Latest Comment
-                {% if sort == 'latest_comment' %} <span class="fa fa-caret-up"></span>{% endif %}
-                {% if sort == '-latest_comment' %} <span class="fa fa-caret-down"></span>{% endif %}
-            </a>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{% blog_url param='sort' value='date' %}" class="btn btn-outline-{% activesort sort 'date' %}">
+                    Date Added
+                    {% if sort == 'date' %} <span class="fa fa-caret-up"></span>{% endif %}
+                    {% if sort == '-date' or not sort %} <span class="fa fa-caret-down"></span>{% endif %}
+                </a>
+                <a href="{% blog_url param='sort' value='comment_count' %}" class="btn btn-outline-{% activesort sort 'comment_count' %}">
+                    # Comments
+                    {% if sort == 'comment_count' %} <span class="fa fa-caret-up"></span>{% endif %}
+                    {% if sort == '-comment_count' %} <span class="fa fa-caret-down"></span>{% endif %}
+                </a>
+                <a href="{% blog_url param='sort' value='latest_comment' %}" class="btn btn-outline-{% activesort sort 'latest_comment' %}">
+                    Latest Comment
+                    {% if sort == 'latest_comment' %} <span class="fa fa-caret-up"></span>{% endif %}
+                    {% if sort == '-latest_comment' %} <span class="fa fa-caret-down"></span>{% endif %}
+                </a>
+            </div>
         </div>
         <div class="col-12 col-lg-5 mt-1 mb-1">
             {% include "journey/search.html" with search=search %}

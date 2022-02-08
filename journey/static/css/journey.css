@@ -6,3 +6,10 @@
 .django-ckeditor-widget {
     display: block!important;
 }
+
+.commentcountbadge {
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    color: #ffffff;
+}

@@ -4,6 +4,10 @@ Add a Forgot Your password feature with good looking templates outside the admin
 Change Password outside the admin panel.
 Change the look and feel of the application.
 
+##Password Reset
+Used this tutorial: https://learndjango.com/tutorials/django-password-reset-tutorial
+ ##Bootstrap Theme:
+https://bootstrap.build/app/project/KFEuubTyXwQL
 
 Submitting Assignment
 1.	A word document with screenshots of all CRUD functions you can do with your application for all entities. Under each screenshot, explain the purpose of the screen.   

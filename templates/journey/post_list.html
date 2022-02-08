@@ -47,7 +47,7 @@
     {% endif %}
 
     {#        Reference - https://startbootstrap.com/template/shop-homepage#}
-    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right">
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right pt-2">
         {% for post in posts %}
             <div class="col mb-4">
                 <div class="card h-100">
@@ -66,7 +66,7 @@
                                 {{ post.author.get_full_name }}
                             </p>
                             <div title="{{ post.latest_comment }}"
-                                 class="badge bg-success position-absolute top-0 start-100 translate-middle">
+                                 class="badge bg-primary translate-middle commentcountbadge">
                                 {{ post.comment_count }}
                             </div>
                         </div>

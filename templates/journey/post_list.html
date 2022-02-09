@@ -15,7 +15,7 @@
             {% include "journey/pagination.html" with req=request page=posts search=search %}
         </div>
         <div class="col-12 col-lg-4 mt-1 mb-1">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group" role="group" aria-label="Sort Selection">
                 <a href="{% blog_url param='sort' value='date' %}" class="btn btn-outline-{% activesort sort 'date' %}">
                     Date Added
                     {% if sort == 'date' %} <span class="fa fa-caret-up"></span>{% endif %}
@@ -70,6 +70,7 @@
                                 {{ post.comment_count }}
                             </div>
                         </div>
+                            <span class="favoritebutton text-primary fa fa-heart{% if post.is_favorite == 0 %}-o{% endif %} fa-2x" data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
                     </div>
                 </div>
             </div>

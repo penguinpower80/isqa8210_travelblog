@@ -1,13 +1,17 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q, Count, Subquery, OuterRef
+from django.db.models.functions import Coalesce
 from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from journey.forms import PostForm, CommentForm
 from journey.models import Post, Comment
+from journey.models.favorites import Favorites
 
 now = timezone.now()
 
@@ -112,6 +116,7 @@ def post_delete(request, pk):
 def post_list(request):
     search = request.GET.get('s')
     sort_param = request.GET.get('sort')
+    favorite_flag = int( request.GET.get('favorite', 0) )
     # doing this to not expose details of the database (vs just using real column names in the links)
     if sort_param == '-date':
         sort = '-publish'
@@ -129,8 +134,13 @@ def post_list(request):
         sort = '-publish'
 
     newest = Comment.objects.filter(post=OuterRef('pk')).order_by('-created')[:1]
+    object_list = Post.objects.annotate(
+        comment_count=Count('comments', distinct=True),
+        latest_comment=Subquery(newest.values('created')),
+    ).order_by(sort)
+
     if search:
-        object_list = Post.objects.filter(
+        object_list = object_list.filter(
             Q(title__icontains=search) |
             Q(visited_places__icontains=search) |
             Q(favorite_place__icontains=search) |
@@ -140,15 +150,18 @@ def post_list(request):
             Q(author__email__icontains=search) |
             Q(author__first_name__icontains=search) |
             Q(author__last_name__icontains=search)
-        ).annotate(
-            comment_count=Count('comments'),
-            latest_comment=Subquery(newest.values('created'))
-        ).order_by(sort)
-    else:
-        object_list = Post.objects.all().annotate(
-            comment_count=Count('comments'),
-            latest_comment=Subquery(newest.values('created'))
-        ).order_by(sort)
+        )
+
+
+    object_list = object_list.annotate(
+            is_favorite=Count('favorites', distinct=True)
+        )
+
+    if favorite_flag == 1:
+        object_list = object_list.filter(
+            is_favorite=1
+        )
+
 
     paginator = Paginator(object_list, 9)  # 6 posts in each page
     page = request.GET.get('page')
@@ -160,6 +173,7 @@ def post_list(request):
     except EmptyPage:
         # If page is out of range deliver last page of results 
         posts = paginator.page(paginator.num_pages)
+
     return render(request,
                   'journey/post_list.html',
                   {

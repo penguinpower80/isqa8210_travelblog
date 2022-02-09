@@ -5,6 +5,28 @@ document.addEventListener('click', function(event){
         document.getElementById('searchinput').value=''
         document.getElementById('searchform').submit()
     }
+console.log(event.target);
+    if ( event.target.matches('.favoritebutton') ) {
+        event.preventDefault();
+        post = event.target.getAttribute("data-pk")
+        if ( event.target.classList.contains("fa-heart-o") ) {
+            fetch("/favorite/"+ post).then(function(r){
+                if ( r.ok ) {
+                    event.target.classList.toggle("fa-heart-o")
+                    event.target.classList.toggle("fa-heart")
+                }
+            })
+        } else {
+            fetch("/favorite/"+ post +"/delete").then(function(r){
+                if ( r.ok ) {
+                    event.target.classList.toggle("fa-heart-o")
+                    event.target.classList.toggle("fa-heart")
+                }
+            })
+        }
+
+
+    }
 })
 
 
@@ -14,3 +36,5 @@ document.addEventListener('click', function(event){
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)
     })
+
+

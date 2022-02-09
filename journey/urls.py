@@ -9,6 +9,8 @@ app_name = 'journey'
 
 urlpatterns = [
                   path('', views.post_list, name='post_list'),
+                  path('favorite/<int:pk>', views.favorite, name="post_favorite"),
+                  path('favorite/<int:pk>/delete', views.unfavorite, name="post_unfavorite"),
                   path('post_list', views.post_list, name='post_list'),
                   path('signup', views.signup, name='signup'),
                   path('post_detail', views.post_detail, name='post_detail'),

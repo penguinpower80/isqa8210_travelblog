@@ -3,62 +3,67 @@
 {% block title %}Posts{% endblock %}
 {% block content %}
     <div class="container tbpost">
-            <h2>{{ post.title }}</h2>
 
-            <h3 class="h5"><span class="fa fa-user"></span> {{ post.author.get_full_name }}</h3>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <img class="rounded img-fluid" src="{{ post.image_url }}" alt="Image at {{ post.title }}">
-            </div>
-            <div class="col-md-6">
-                <p><strong>Visited Places:</strong> {{ post.visited_places }}</p>
-                <p><strong>Visited Date:</strong> {{ post.visited_date }}</p>
-                <p><strong>Favorite Place:</strong> {{ post.favorite_place }}</p>
-                <p><strong>Address:</strong> {{ post.address }}</p>
-                <p><strong>Favorite Activity:</strong> {{ post.favorite_activity }}</p>
-                {% if post.author == user %}
-                    <a href="{% url 'journey:post_edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
-                    <a href="{% url 'journey:post_delete' pk=post.pk %}"
-                       onclick="return confirm('Are you sure you want to delete?')"
-                       class="btn btn-danger">Delete</a>
-                {% endif %}
-            </div>
-        </div>
-        <div>
-            <br>
-            <p class="h4">Description</p>
-            <p>{{ post.description|safe }}</p>
-        </div>
-        <hr/>
-        {% with comments.count as total_comments %}
-            <h5>
-                {{ total_comments }} comment{{ total_comments|pluralize }}
-            </h5>
-        {% endwith %}
-        {% for comment in comments %}
-            <div class="pl-1 mb-2">
-                <div class="row border-bottom">
+        <h2>{{ post.title }}</h2>
 
-                    <div class="col-6"><span title="Comment {{ forloop.counter }}"
-                                             class="fa fa-comment"></span> {{ comment.name }}</div>
-                    <div class="col-6 text-end">{{ comment.created }}</div>
-                </div>
-                <div class="p-3 pt-0">
-                    {{ comment.body|safe }}
-                </div>
+        <h3 class="h5"><span class="fa fa-user"></span> {{ post.author.get_full_name }}</h3>
+    </div>
+    <div class="row postdetails">
+
+        <div class="col-md-6">
+            <img class="rounded img-fluid" src="{{ post.image_url }}" alt="Image at {{ post.title }}">
+        </div>
+        <div class="col-md-6">
+            <span class="favoritebutton text-primary fa fa-heart{% if post.favorites.count == 0 %}-o{% endif %} fa-2x"
+                  data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
+
+            <p><strong>Visited Places:</strong> {{ post.visited_places }}</p>
+            <p><strong>Visited Date:</strong> {{ post.visited_date }}</p>
+            <p><strong>Favorite Place:</strong> {{ post.favorite_place }}</p>
+            <p><strong>Address:</strong> {{ post.address }}</p>
+            <p><strong>Favorite Activity:</strong> {{ post.favorite_activity }}</p>
+            {% if post.author == user %}
+                <a href="{% url 'journey:post_edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'journey:post_delete' pk=post.pk %}"
+                   onclick="return confirm('Are you sure you want to delete?')"
+                   class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+    <div>
+        <br>
+        <p class="h4">Description</p>
+        <p>{{ post.description|safe }}</p>
+    </div>
+    <hr/>
+    {% with comments.count as total_comments %}
+        <h5>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h5>
+    {% endwith %}
+    {% for comment in comments %}
+        <div class="pl-1 mb-2">
+            <div class="row border-bottom">
+
+                <div class="col-6"><span title="Comment {{ forloop.counter }}"
+                                         class="fa fa-comment"></span> {{ comment.name }}</div>
+                <div class="col-6 text-end">{{ comment.created }}</div>
             </div>
-        {% empty %}
-            <p>There are no comments yet.</p>
-        {% endfor %}
-        {% if user.is_authenticated %}
-            <h5>Add a new comment</h5>
-            <form method="post">
-                {{ comment_form.media }}
-                {{ comment_form.as_p }}
-                {% csrf_token %}
-                <p><input type="submit" class="btn btn-primary" value="Add comment"></p>
-            </form>
-        {% endif %}
+            <div class="p-3 pt-0">
+                {{ comment.body|safe }}
+            </div>
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <h5>Add a new comment</h5>
+        <form method="post">
+            {{ comment_form.media }}
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" class="btn btn-primary" value="Add comment"></p>
+        </form>
+    {% endif %}
     </div>
 {% endblock %} 

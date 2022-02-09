@@ -47,4 +47,6 @@ def activesort(sort, field):
 
 @register.simple_tag
 def popovertext(text, length, title):
+    if not text:
+        return ""
     return mark_safe('<span class ="tbpopover" tabindex="0" data-bs-title="'+title+'" data-bs-html="true" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="'+ text+'">'+ Truncator(text).words(length)+'</span>')

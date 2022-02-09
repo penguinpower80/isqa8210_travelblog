@@ -153,14 +153,15 @@ def post_list(request):
         )
 
 
-    object_list = object_list.annotate(
-            is_favorite=Count('favorites', distinct=True)
-        )
+    if ( request.user.is_authenticated ):
+        object_list = object_list.annotate(
+                is_favorite=Count('favorites', distinct=True, filter=Q(favorites__user=request.user))
+            )
 
-    if favorite_flag == 1:
-        object_list = object_list.filter(
-            is_favorite=1
-        )
+        if favorite_flag == 1:
+            object_list = object_list.filter(
+                is_favorite=1
+            )
 
 
     paginator = Paginator(object_list, 9)  # 6 posts in each page
@@ -204,6 +205,17 @@ def travelblog_post(request, post_id):
             comment_form = CommentForm()
     else:
         comment_form = CommentForm()
+
+    is_favorite = Favorites.objects.filter(
+        post=post,
+        user=request.user
+    ).count() == 1
+
+    logging.warning(is_favorite)
     return render(request, 'journey/travelblog_post.html',
-                  {'post': post, 'comments': comments,
-                   'comment_form': comment_form})
+                  {
+                      'post': post,
+                      'comments': comments,
+                      'comment_form': comment_form,
+                      'is_favorite': is_favorite
+                  })

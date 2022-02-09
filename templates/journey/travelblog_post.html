@@ -14,7 +14,7 @@
             <img class="rounded img-fluid" src="{{ post.image_url }}" alt="Image at {{ post.title }}">
         </div>
         <div class="col-md-6">
-            <span class="favoritebutton text-primary fa fa-heart{% if post.favorites.count == 0 %}-o{% endif %} fa-2x"
+            <span class="favoritebutton text-primary fa fa-heart{% if not is_favorite %}-o{% endif %} fa-2x"
                   data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
 
             <p><strong>Visited Places:</strong> {{ post.visited_places }}</p>

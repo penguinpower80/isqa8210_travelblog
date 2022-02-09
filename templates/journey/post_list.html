@@ -70,7 +70,9 @@
                                 {{ post.comment_count }}
                             </div>
                         </div>
+                    {% if user.is_authenticated %}
                             <span class="favoritebutton text-primary fa fa-heart{% if post.is_favorite == 0 %}-o{% endif %} fa-2x" data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
+                    {% endif %}
                     </div>
                 </div>
             </div>

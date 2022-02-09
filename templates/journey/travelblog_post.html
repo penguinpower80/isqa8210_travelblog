@@ -3,20 +3,20 @@
 {% block title %}Posts{% endblock %}
 {% block content %}
     <div class="container tbpost">
-        <div>
             <h2>{{ post.title }}</h2>
-            <h2><span class="fa fa-user"></span> {{ post.author.get_full_name }}</h2>
+
+            <h3 class="h5"><span class="fa fa-user"></span> {{ post.author.get_full_name }}</h3>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <img class="rounded img-fluid" src="{{ post.image_url }}" alt="Image at {{ post.title }}">
             </div>
             <div class="col-md-6">
-                <p>Visited Places: {{ post.visited_places }}</p>
-                <p>Visited Date: {{ post.visited_date }}</p>
-                <p>Favorite Place: {{ post.favorite_place }}</p>
-                <p>Address: {{ post.address }}</p>
-                <p>Favorite Activity: {{ post.favorite_activity }}</p>
+                <p><strong>Visited Places:</strong> {{ post.visited_places }}</p>
+                <p><strong>Visited Date:</strong> {{ post.visited_date }}</p>
+                <p><strong>Favorite Place:</strong> {{ post.favorite_place }}</p>
+                <p><strong>Address:</strong> {{ post.address }}</p>
+                <p><strong>Favorite Activity:</strong> {{ post.favorite_activity }}</p>
                 {% if post.author == user %}
                     <a href="{% url 'journey:post_edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
                     <a href="{% url 'journey:post_delete' pk=post.pk %}"

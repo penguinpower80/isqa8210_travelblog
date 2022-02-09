@@ -1,4 +1,6 @@
 from django import template
+from django.utils.safestring import mark_safe
+from django.utils.text import Truncator
 
 register = template.Library()
 
@@ -40,4 +42,9 @@ def activesort(sort, field):
        or (field=='comment_count' and (sort=='comment_count' or sort=='-comment_count') ) \
        or ( field=='latest_comment' and (sort=='latest_comment' or sort=='-latest_comment') ):
         return 'primary active'
-    return 'secondary'
+    return 'secondary'\
+
+
+@register.simple_tag
+def popovertext(text, length, title):
+    return mark_safe('<span class ="tbpopover" tabindex="0" data-bs-title="'+title+'" data-bs-html="true" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="'+ text+'">'+ Truncator(text).words(length)+'</span>')

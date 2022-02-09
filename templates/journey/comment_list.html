@@ -29,7 +29,6 @@
                     <th>Post</th>
                     <th>Post Author</th>
                     <th>Commenter</th>
-                    <th>Email</th>
                     <th>Body</th>
                     <th>Created Date</th>
                     <th>Updated Date</th>
@@ -41,17 +40,16 @@
                     <tr>
                         <td>{{ comment.post.title }}</td>
                         <td>{{ comment.post.author.get_full_name }}</td>
-                        <td>{{ comment.name }}</td>
-                        <td>{{ comment.email }}</td>
+                        <td><a href="mailto:{{ comment.email }}">{{ comment.name }}</a></td>
                         <td>{{ comment.body|safe }}</td>
 
                         <td>{{ comment.created }}</td>
                         <td>{{ comment.updated }}</td>
                         <td><a href="{% url 'journey:comment_edit' pk=comment.pk %}"
-                               class="btn btn-warning">Edit</a></td>
+                               class="btn btn-sm btn-warning">Edit</a></td>
                         <td><a href="{% url 'journey:comment_delete' pk=comment.pk %}"
                                onclick="return confirm('Are you sure you want to delete?')"
-                               class="btn btn-danger">Delete</a>
+                               class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

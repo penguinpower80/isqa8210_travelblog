@@ -3,7 +3,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-
 from journey.forms import CommentForm
 from journey.models import Comment
 

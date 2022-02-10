@@ -1,7 +1,7 @@
 # Diary of a Journal: isqa8210_travelblog
 https://travelblog-dgh.herokuapp.com/
 
-#Additional Features/Items
+# Additional Features/Items
 
 - Custom Management Functions
   - seed
@@ -74,19 +74,19 @@ https://travelblog-dgh.herokuapp.com/
   - Added JS (ajax) and styling (button)
 
 
-##Resources:
-###Password Reset
+## Resources:
+### Password Reset
 Used this tutorial: https://learndjango.com/tutorials/django-password-reset-tutorial
 
-###Icons:
+### Icons:
 https://fontawesome.com/icons
 
-###Bootstrap Theme:
+### Bootstrap Theme:
 https://bootstrap.build/app/project/KFEuubTyXwQL
 
-###Bootstrap Popover:
+### Bootstrap Popover:
 https://getbootstrap.com/docs/5.0/components/popovers/ 
 
-###Box Shadow:
+### Box Shadow:
 https://html-css-js.com/css/generator/box-shadow/
 

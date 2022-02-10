@@ -1,55 +1,86 @@
 # Diary of a Journal: isqa8210_travelblog
-
-
-
+https://travelblog-dgh.herokuapp.com/
 
 #Additional Features/Items
-    - Custom Management Functions
-        - seed
-            - python manage.py seed
-            - Uses faker to add up to 25 users, up to 25 posts for each, and up to 10 commetns for each post.
-            - Uses image generator to randomly provide image links (https://picsum.photos/)
-        - cleanup
-            - python manage.py cleanup
-            - Deletes all posts, comments and REGULAR users
-        - testemail
-            - python manage.py testemail
-            - sends a test email (used during SendGrid setup)
-    - Numerous responsive changes and visual tweaks
-        - Added popovers to post list to help the table format better
-        - Image fixes for responsiveness
-        - Used Crispy Forms for Bootstrap 5 styling
-        - Added comment count badge on front page posts
-        - Fixed some W3C HTML validation issues
-        - Added some icons for author and comments
-        - Updated the comments list in the travelblog_post page
-    - Added Custom Template Tags
-        - blog_url
-            - Create the right url for using in pagination and sorting links
-        - activesort
-            - add appropriate styling to sorting buttons
-        - popovertext
-            - create truncated text html for use with BS popover
-    - Config changes
-        - Created .env to move secret_key and un/pw for SendGrid into non-repository file.  Set up environment variables in heroku to provide this information.
-        - Added additional security checks to CRUD methods to make sure the user was a superuser, NOT just logged in.
-    - UI Changes
-        - Added Sort by post date, # of comments, and last comment date for front page
-        - Added searching for front page, post list, and comment list
-        - Added pagination for post list, and comment list
-    - Added styled Change password page to front end
-        - /accounts/password_change
-        - Linked in dropdown menu next to logout
+
+- Custom Management Functions
+  - seed
+    - python manage.py seed
+    - Uses faker to add up to 25 users, up to 25 posts for each, and up to 10 commetns for each post.
+    - Uses random image site to image links (https://picsum.photos/)
+  - cleanup
+     - python manage.py cleanup
+          - Deletes all posts, comments and REGULAR users (to re-run seed if needed)
+  - testemail
+      - python manage.py testemail
+      - sends a test email (used during SendGrid setup)
+
+
+- Numerous responsive changes and visual tweaks
+    - Added popovers to post list to help the table format better
+    - Image fixes for responsiveness
+    - Used Crispy Forms for Bootstrap 5 styling
+    - Added comment count badge on front page posts
+    - Fixed some W3C HTML validation issues
+    - Added some icons for author and comments
+    - Updated the comments list in the travelblog_post page
+
+
+- Added Custom Template Tags
+    - blog_url
+        - Create the right url for using in pagination and sorting links
+        - {%blog_url [param] [value] %}
+          - param: URL Parameter Name
+          - value: value for that parameter
+          - adds "?param=value" or "&param=value" to url
+    - activesort
+        - add appropriate styling to sorting buttons
+        - {% activesort [sort] [field] %}
+          - sort: the sort of the query (i.e. date or -date)
+          - field: the butten this applies to
+          - returns either "primary active" or "secondary" to style the sorting buttons appropriately
+    - popovertext
+        - create truncated text html for use with BS popover
+        - {% popovertext text length title %}
+          - text: full text
+          - length: number of words to retain
+          - title: title to show in the popover
+          - returns html for the popover with appropriate data- attributes.
+      
+
+- Config changes
+    - Created .env to move secret_key and un/pw for SendGrid into non-committed files.  
+    - Set up environment variables in heroku to provide this information.
+    - Added additional security checks to CRUD methods to make sure the user was a superuser, NOT just logged in.
+  
+
+- Query functionality Changes
+    - Added Sort by post date, # of comments, and last comment date for front page
+    - Added searching for front page, post list, and comment list
+    - Added pagination for post list, and comment list
+    - Added filtering for favorites 
+  
+
+- Added styled Change password page to front end
+    - /accounts/password_change
+    - Linked in dropdown menu next to logout
     - Set up SendGrid integration
     - Set up styled "forgot my password" feature
-    - Added favorites table
-        - Added JS (ajax) and styling
+  
+
+- Added favorites
+  - Added favorites table
+  - Added view to handle Ajax of making/removing favorite
+  - Added JS (ajax) and styling (button)
 
 
-##Attributes:
+##Resources:
 ###Password Reset
 Used this tutorial: https://learndjango.com/tutorials/django-password-reset-tutorial
- 
+
+###Icons:
+https://fontawesome.com/icons
+
 ###Bootstrap Theme:
 https://bootstrap.build/app/project/KFEuubTyXwQL
 

@@ -2,7 +2,6 @@
 https://travelblog-dgh.herokuapp.com/
 
 # Additional Features/Items
-
 - Custom Management Functions
   - seed
     - python manage.py seed

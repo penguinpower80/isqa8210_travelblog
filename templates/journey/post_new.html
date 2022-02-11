@@ -5,8 +5,8 @@
     <div class='form-group'> 
         <form method="POST" enctype='multipart/form-data' class="uniForm">{% csrf_token %}
             {{ form.media }}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-outline-dark">Save</button> 
+            {% crispy form %}
+            <!-- button type="submit" class="btn btn-outline-dark">Save</button -->
         </form> 
     </div> 
 {% endblock %}

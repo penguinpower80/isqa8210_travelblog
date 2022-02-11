@@ -1,19 +1,32 @@
 import logging
+import shutil
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.files.storage import FileSystemStorage, default_storage
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q, Count, Subquery, OuterRef
 from django.db.models.functions import Coalesce
 from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-
 from journey.forms import PostForm, CommentForm
 from journey.models import Post, Comment
 from journey.models.favorites import Favorites
+from travelblog import settings
 
 now = timezone.now()
+
+
+@login_required
+def _handle_file_upload(request, post):
+    new_image_upload = request.FILES.get('image_upload_field', False)
+    if new_image_upload:
+        image_file = new_image_upload
+        path = str(post.id) + '/' + image_file.name
+        filename = default_storage.save(path, image_file)
+        return request.build_absolute_uri(default_storage.url(filename))
+    return False
 
 
 # to view details of the post from the application
@@ -56,16 +69,21 @@ def post_detail(request):
                   })
 
 
-# to add new post from the application
+# Saves the new posts form to the database.
+# If a file is being uploaded, saves the file and stores the url in the image_url field
 @login_required
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.created_date = timezone.now()
             post.save()
+            upload_url = _handle_file_upload(request, post)
+            if upload_url:
+                post.image_url = upload_url
+                post.save()
             return redirect('journey:post_list')
     else:
         form = PostForm()
@@ -82,11 +100,19 @@ def post_edit(request, pk):
 
     if request.method == "POST":
         # update
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
+        logging.warning(request.FILES)
+
         if form.is_valid():
             post = form.save(commit=False)
+
             post.updated_date = timezone.now()
             post.save()
+            upload_url = _handle_file_upload(request, post)
+            if upload_url:
+                post.image_url = upload_url
+                post.save()
+
             if request.user.is_superuser:
                 return redirect('journey:post_detail')
             else:
@@ -103,9 +129,14 @@ def post_edit(request, pk):
 # to delete the post from the application
 @login_required
 def post_delete(request, pk):
-    if not request.user.is_superuser:
-        return redirect("journey:post_list")
     post = get_object_or_404(Post, pk=pk)
+    if request.user != post.author and not request.user.is_superuser:
+        return redirect("journey:post_list")
+
+    # cleanup any files that were uploaded to this particular post
+    if default_storage.exists(settings.MEDIA_ROOT + '/' + str(post.id) + '/'):
+        shutil.rmtree(settings.MEDIA_ROOT + '/' + str(post.id) + '/', ignore_errors=True)
+
     post.delete()
     if request.user.is_superuser:
         return redirect('journey:post_detail')
@@ -116,7 +147,7 @@ def post_delete(request, pk):
 def post_list(request):
     search = request.GET.get('s')
     sort_param = request.GET.get('sort')
-    favorite_flag = int( request.GET.get('favorite', 0) )
+    favorite_flag = int(request.GET.get('favorite', 0))
     # doing this to not expose details of the database (vs just using real column names in the links)
     if sort_param == '-date':
         sort = '-publish'
@@ -152,17 +183,15 @@ def post_list(request):
             Q(author__last_name__icontains=search)
         )
 
-
-    if ( request.user.is_authenticated ):
+    if (request.user.is_authenticated):
         object_list = object_list.annotate(
-                is_favorite=Count('favorites', distinct=True, filter=Q(favorites__user=request.user))
-            )
+            is_favorite=Count('favorites', distinct=True, filter=Q(favorites__user=request.user))
+        )
 
         if favorite_flag == 1:
             object_list = object_list.filter(
                 is_favorite=1
             )
-
 
     paginator = Paginator(object_list, 9)  # 6 posts in each page
     page = request.GET.get('page')

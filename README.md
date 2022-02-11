@@ -23,6 +23,7 @@ https://travelblog-dgh.herokuapp.com/
     - Fixed some W3C HTML validation issues
     - Added some icons for author and comments
     - Updated the comments list in the travelblog_post page
+    - Added ability to upload image instead of using a URL (but left that ability as well)
 
 
 - Added Custom Template Tags
@@ -51,6 +52,7 @@ https://travelblog-dgh.herokuapp.com/
     - Created .env to move secret_key and un/pw for SendGrid into non-committed files.  
     - Set up environment variables in heroku to provide this information.
     - Added additional security checks to CRUD methods to make sure the user was a superuser, NOT just logged in.
+    - Refactor to put views/forms/models in individual files
   
 
 - Query functionality Changes

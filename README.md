@@ -9,7 +9,7 @@ https://travelblog-dgh.herokuapp.com/
    1. Create a .env file in the same folder as manage.py 
    2. Create 3 entries:
       1. SECRET_KEY = '(populate with DJANGO Secret)'
-         1. Generate using a web tool Django itself:
+         1. Generate using a web tool or Django itself:
             1. https://miniwebtool.com/django-secret-key-generator/
             2. `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
 

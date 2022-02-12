@@ -1,6 +1,30 @@
 # Diary of a Journal: isqa8210_travelblog
 https://travelblog-dgh.herokuapp.com/
 
+#Steps to install/run locally
+1. Download repository
+2. Install python requirements
+   1. `pip install -r requirements.txt`
+3. Configure environment variables 
+   1. Create a .env file in the same folder as manage.py 
+   2. Create 3 entries:
+      1. SECRET_KEY = '(populate with DJANGO Secret)'
+         1. Generate using a web tool Django itself:
+            1. https://miniwebtool.com/django-secret-key-generator/
+            2. `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
+
+      2. EMAIL_HOST_USER = '(populate with SMTP username)'
+      3. EMAIL_HOST_PASSWORD = '(populate with SMTP password)'
+4. Run migrations
+   1. `python manage.py migrate`
+5. Create a superuser:
+   1. `python manage.py createsuperuser`
+   2. Follow prompts
+6. Optionally, seed the database:
+   1. `python manage.py seed`
+7. Run Server
+   1. `python manage.py runserver`
+
 # Additional Features/Items
 - Custom Management Functions
   - seed

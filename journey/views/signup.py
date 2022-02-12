@@ -3,7 +3,10 @@ from django.shortcuts import redirect, render
 
 from journey.forms import CreateUserAccountForm
 
-
+'''
+Handle the signup process.  Displays the signup form, and,when submitted and validated, creates the user and
+logs them in.
+'''
 def signup(request):
     if request.method == 'POST':
         user_form = CreateUserAccountForm(request.POST)

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('journey', '0004_alter_post_description_alter_post_favorite_place'),
     ]

@@ -1,6 +1,3 @@
-import logging
-
-import django.db.models
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field, Div, HTML
 from django import forms
@@ -12,6 +9,7 @@ from journey.models import Post
 
 class PostForm(forms.ModelForm):
     image_upload_field = forms.ImageField(required=False)
+
     # https://django-crispy-forms.readthedocs.io/en/latest/layouts.html
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

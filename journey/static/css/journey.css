@@ -4,36 +4,36 @@
 
 /* this is a really bad way to do this, but the inline-block is hard coded into the widget and this is easier for quick project */
 .django-ckeditor-widget {
-    display: block!important;
+    display: block !important;
 }
 
 .commentcountbadge {
-    position:absolute;
-    top:-5px;
-    right:-5px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
     color: #ffffff;
 }
 
 .tbpopover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 /* Generated here: https://html-css-js.com/css/generator/box-shadow/ */
 .popover {
--webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 20px 5px #D9230F;
-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 20px 5px #D9230F;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 20px 5px #D9230F;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 20px 5px #D9230F;
 }
 
- .favoritebutton {
-    position:absolute;
+.favoritebutton {
+    position: absolute;
     top: 5px;
     left: 5px;
-     right: auto;
-    cursor:pointer;
+    right: auto;
+    cursor: pointer;
 }
 
 .postdetails .favoritebutton {
-    top:-15px;
+    top: -15px;
     right: 0;
     left: auto;
 }

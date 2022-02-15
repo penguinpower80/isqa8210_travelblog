@@ -101,7 +101,6 @@ def post_edit(request, pk):
     if request.method == "POST":
         # update
         form = PostForm(request.POST, request.FILES, instance=post)
-        logging.warning(request.FILES)
 
         if form.is_valid():
             post = form.save(commit=False)
@@ -240,7 +239,6 @@ def travelblog_post(request, post_id):
         user=request.user
     ).count() == 1
 
-    logging.warning(is_favorite)
     return render(request, 'journey/travelblog_post.html',
                   {
                       'post': post,

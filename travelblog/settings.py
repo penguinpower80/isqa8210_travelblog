@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'journey.apps.JourneyConfig',
     'ckeditor',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -159,5 +160,12 @@ DEFAULT_FROM_EMAIL = 'dhefley@unomaha.edu'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+#https://blog.theodo.com/2019/07/aws-s3-upload-django/
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME="us-east-1"
 
 django_heroku.settings(locals())

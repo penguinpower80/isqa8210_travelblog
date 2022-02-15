@@ -1,12 +1,7 @@
-import time
-
-from faker.generator import random
+from django.contrib.auth import get_user_model
+from django.core.management import BaseCommand
 
 from journey.models import Post, Comment
-from django.contrib.auth import get_user_model
-
-from django.core.management import BaseCommand
-from django_seed import Seed
 
 
 class Command(BaseCommand):
@@ -29,5 +24,3 @@ class Command(BaseCommand):
         User.objects.filter(is_superuser=0).delete()
 
         self.stdout.write('Complete.')
-
-

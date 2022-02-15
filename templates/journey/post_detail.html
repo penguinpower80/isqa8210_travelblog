@@ -47,16 +47,16 @@
                 <tbody>
                 {% for post in posts %}
                     <tr>
-                         <td><a href="{% url 'journey:post_edit' pk=post.pk %}"
+                        <td><a href="{% url 'journey:post_edit' pk=post.pk %}"
                                class="btn btn-block btn-sm btn-warning">Edit</a>
-                             <a href="{% url 'journey:post_delete' pk=post.pk %}"
+                            <a href="{% url 'journey:post_delete' pk=post.pk %}"
                                onclick="return confirm('Are you sure you want to delete?')"
                                class="btn btn-block btn-sm btn-danger">Delete</a>
                         </td>
                         <td>{{ post.title }}</td>
                         <th>{{ post.author.get_full_name }}</th>
                         <td><a href="{{ post.image_url }}" target="_blank">View</a></td>
-                        <td >{% popovertext post.visited_places 5 "Visited Places"|safe %}</td>
+                        <td>{% popovertext post.visited_places 5 "Visited Places"|safe %}</td>
                         <td>{{ post.visited_date }}</td>
                         <td>{% popovertext post.favorite_place 5 "Favorite Place"|safe %}</td>
                         <td>{{ post.address }}</td>

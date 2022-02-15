@@ -20,7 +20,7 @@ urlpatterns = [
                   path('comment_list', views.comment_list, name='comment_list'),
                   path('comment/<int:pk>/edit/', views.comment_edit, name='comment_edit'),
                   path('comment/<int:pk>/delete/', views.comment_delete, name='comment_delete'),
-                  path('travelblog_post/<int:post_id>',views.travelblog_post, name='travelblog_post'),
+                  path('travelblog_post/<int:post_id>', views.travelblog_post, name='travelblog_post'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -21,12 +21,14 @@
                     {% if sort == 'date' %} <span class="fa fa-caret-up"></span>{% endif %}
                     {% if sort == '-date' or not sort %} <span class="fa fa-caret-down"></span>{% endif %}
                 </a>
-                <a href="{% blog_url param='sort' value='comment_count' %}" class="btn btn-outline-{% activesort sort 'comment_count' %}">
+                <a href="{% blog_url param='sort' value='comment_count' %}"
+                   class="btn btn-outline-{% activesort sort 'comment_count' %}">
                     # Comments
                     {% if sort == 'comment_count' %} <span class="fa fa-caret-up"></span>{% endif %}
                     {% if sort == '-comment_count' %} <span class="fa fa-caret-down"></span>{% endif %}
                 </a>
-                <a href="{% blog_url param='sort' value='latest_comment' %}" class="btn btn-outline-{% activesort sort 'latest_comment' %}">
+                <a href="{% blog_url param='sort' value='latest_comment' %}"
+                   class="btn btn-outline-{% activesort sort 'latest_comment' %}">
                     Latest Comment
                     {% if sort == 'latest_comment' %} <span class="fa fa-caret-up"></span>{% endif %}
                     {% if sort == '-latest_comment' %} <span class="fa fa-caret-down"></span>{% endif %}
@@ -70,9 +72,10 @@
                                 {{ post.comment_count }}
                             </div>
                         </div>
-                    {% if user.is_authenticated %}
-                            <span class="favoritebutton text-primary fa fa-heart{% if post.is_favorite == 0 %}-o{% endif %} fa-2x" data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
-                    {% endif %}
+                        {% if user.is_authenticated %}
+                            <span class="favoritebutton text-primary fa fa-heart{% if post.is_favorite == 0 %}-o{% endif %} fa-2x"
+                                  data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
+                        {% endif %}
                     </div>
                 </div>
             </div>

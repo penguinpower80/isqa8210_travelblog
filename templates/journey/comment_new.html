@@ -1,10 +1,10 @@
 {% extends 'journey/base.html' %}
 {% load crispy_forms_tags %}
-{% block content %} 
-    <h1>Add a new comment</h1> 
-    <form method="POST" class="comment-form"> 
-        {% csrf_token %} 
+{% block content %}
+    <h1>Add a new comment</h1>
+    <form method="POST" class="comment-form">
+        {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-outline-dark">Save</button> 
-    </form> 
+        <button type="submit" class="btn btn-outline-dark">Save</button>
+    </form>
 {% endblock %}

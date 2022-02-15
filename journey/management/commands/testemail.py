@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.core.management import BaseCommand
 
+
 # https://docs.djangoproject.com/en/4.0/topics/email/
 
 class Command(BaseCommand):

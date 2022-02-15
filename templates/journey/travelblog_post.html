@@ -14,15 +14,17 @@
             <img class="rounded img-fluid" src="{{ post.image_url }}" alt="Image at {{ post.title }}">
         </div>
         <div class="col-md-6">
-            <span class="favoritebutton text-primary fa fa-heart{% if not is_favorite %}-o{% endif %} fa-2x"
-                  data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
+            {% if user.is_authenticated %}
+                <span class="favoritebutton text-primary fa fa-heart{% if not is_favorite %}-o{% endif %} fa-2x"
+                      data-pk="{{ post.pk }}" title="Click to toggle favorite"></span>
+            {% endif %}
 
             <p><strong>Visited Places:</strong> {{ post.visited_places }}</p>
             <p><strong>Visited Date:</strong> {{ post.visited_date }}</p>
             <p><strong>Favorite Place:</strong> {{ post.favorite_place }}</p>
             <p><strong>Address:</strong> {{ post.address }}</p>
             <p><strong>Favorite Activity:</strong> {{ post.favorite_activity }}</p>
-            {% if post.author == user %}
+            {% if post.author == user or request.user.is_superuser %}
                 <a href="{% url 'journey:post_edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
                 <a href="{% url 'journey:post_delete' pk=post.pk %}"
                    onclick="return confirm('Are you sure you want to delete?')"

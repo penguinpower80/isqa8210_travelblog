@@ -29,7 +29,9 @@ def _handle_file_upload(request, post):
         image_file = new_image_upload
         path = str(post.id) + '/' + image_file.name
         filename = default_storage.save(path, image_file)
-        return request.build_absolute_uri(default_storage.url(filename))
+        uri = request.build_absolute_uri(default_storage.url(filename))
+        uriParts = uri.split("?") #need to get rid of the garbage that AWS adds.
+        return uriParts[0]
     return False
 
 '''
